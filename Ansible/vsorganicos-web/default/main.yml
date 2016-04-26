@@ -1,0 +1,21 @@
+---
+##
+# Tasks variables
+##
+java_download_url: http://download.oracle.com/otn-pub/java/jdk/6u41-b02/jdk-6u41-linux-x64.bin
+java_install_path: /opt/java
+java_download_path: "{{java_install_path}}/jdk-6u41-linux-x64.bin"
+
+http_port: 8000
+https_port: 8001
+admin_username: vsorganicos
+admin_password: VSorganicos#2016
+
+mysql_username: vsorganicos
+mysql_pass: VSorganicos#2016
+mysql_host: localhost
+mysql_port: 3306
+mysql_database: vidasaudavelorganicos
+
+# Whether to use a cow in templates rather than {# ansible_managed #}
+java_template_use_cow: "{{ util_template_use_cow|default(true) }}"

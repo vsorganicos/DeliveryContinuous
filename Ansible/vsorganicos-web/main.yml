@@ -1,0 +1,28 @@
+- hosts: localhost
+  remote_user: root
+  become: yes
+
+  pre_tasks:
+  - include: tasks/main.yml
+
+  tasks:
+  - name: Configura a conexao ao banco via JNDI
+    template: src=context.xml dest=/usr/share/tomcat/conf/
+
+  - name: AWS Credentials File Path
+    file: dest=/root/.aws/ owner=0 group=0 state=directory recurse=yes
+
+  - name: AWS Credentials
+    template: src=credentials dest=/root/.aws/credentials
+
+  - name: Remove pastas sem uso
+    file: path=/usr/share/tomcat/webapps owner=tomcat group=tomcat state=absent
+
+  - name: restart tomcat
+    service: name=tomcat state=restarted
+
+  vars_files:
+  - 'default/main.yml'
+
+  roles:
+  - tomcat

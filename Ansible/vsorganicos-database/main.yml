@@ -1,0 +1,5 @@
+- hosts: database
+  remote_user: root
+
+  roles:
+  - {role: mysql, become: yes, mysql_root_username: 'vsorganicos', mysql_root_password: 'VSorganicos#2016', mysql_max_connections: 30, mysql_databases: { name: vidasaudavelorganicos } }

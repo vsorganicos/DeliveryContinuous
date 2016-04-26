@@ -1,0 +1,41 @@
+---
+  - name: Verifica se o Java ja esta instalado
+    shell: "ls {{java_download_path}}"
+    register: oracle_java_task_installed
+    ignore_errors: yes
+    changed_when: False
+
+  - name: Instalar IPtables
+    action: apt name=ufw state=present
+
+  - name: Instalar wget
+    action: apt name=wget state=present
+
+  - name: Create java_install_path
+    file: path={{ java_install_path }} owner=0 group=0 mode=0755 state=directory recurse=yes
+
+  - name: Downdload Java 6
+    command: "wget -O {{ java_download_path }} --no-cookies --header 'Cookie: oraclelicense=accept-securebackup-cookie;' {{ java_download_url }}"
+    when: oracle_java_task_installed|failed
+
+  - name: Permissao de Execucao Java 6
+    file: path={{ java_download_path }} owner=root group=root mode=u+rwx
+
+  - name: Instala Java 6
+    command: "{{java_download_path}}"
+    args:
+      chdir: "{{java_install_path}}"
+
+  - name: Java Settings
+    template:
+      src: java.sh.j2
+      dest: "{{ java_install_path }}/java.sh"
+      owner: 0
+      group: 0
+      mode: 0755
+
+  - name: Activate Java system environment configuration
+    file:
+      state: link
+      src: "{{ java_install_path }}/java.sh"
+      dest: /etc/profile.d/java.sh
