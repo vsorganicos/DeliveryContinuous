@@ -1,0 +1,12 @@
+---
+
+  - name: make a keypair with the specified name
+    local_action:
+      module: ec2_key
+      name: "{{ name|default('ansible') }}"
+      region: "{{ region|default('sa-east-1') }}"
+      wait: yes
+    register: key_data
+
+  - name: debug keypair
+    debug: msg="{{ key_data }}"  

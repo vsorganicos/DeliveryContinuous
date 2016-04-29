@@ -1,0 +1,12 @@
+---
+ - name: Copy Dump File
+   copy: src=vidasaudavelorganicos.sql dest=/tmp
+
+ - name: Import MySQL Dump
+   mysql_db:
+     name={{mysql_database}}
+     login_user=root
+     login_password={{mysql_pass}}
+     login_host={{mysql_host}}
+     state=import
+     target=/tmp/vidasaudavelorganicos.sql

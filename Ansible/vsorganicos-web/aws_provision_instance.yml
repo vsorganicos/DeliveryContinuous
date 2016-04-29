@@ -1,0 +1,9 @@
+---
+
+- name: Provision the instances
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  tasks:
+    - include: tasks/key_pair.yml
+#    - include: tasks/securitygroup.yml name="webservers" vpc_id="vpc-51cefa34"

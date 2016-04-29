@@ -1,0 +1,9 @@
+---
+#Variáveis de Setup
+
+mysql_username: vsorganicos
+mysql_pass: VSorganicos#2016
+mysql_host: localhost
+mysql_port: 3306
+mysql_database: vidasaudavelorganicos
+mysql_remote_host: 192.168.99.1

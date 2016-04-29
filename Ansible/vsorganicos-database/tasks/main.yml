@@ -1,5 +1,0 @@
----
-#Tarefas para fazer o setup do banco de dados
-- name: Verifica se o banco está rodando
-  service: "name={{ mysql_daemon }} state=started enabled=yes"
-  register: mysql_vsorganicos_configuration

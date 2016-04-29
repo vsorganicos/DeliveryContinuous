@@ -18,6 +18,12 @@
   - name: Remove pastas sem uso
     file: path=/usr/share/tomcat/webapps owner=tomcat group=tomcat state=absent
 
+  - name: Adiciona a pasta raiz da app
+    file: path=/usr/share/tomcat/webapps/ROOT owner=tomcat group=tomcat state=directory recurse=yes
+
+  - name: Adiciona a pasta raiz do lucene
+    file: path="{{apache_lucene_path}}" owner=tomcat group=tomcat state=directory recurse=yes    
+
   - name: restart tomcat
     service: name=tomcat state=restarted
 

@@ -1,0 +1,25 @@
+---
+
+- name: create the security group
+  local_action:
+    module: ec2_group
+    name: "{{ name|default('ansible_security_group') }}"
+    description: "ansible generated group"
+    vpc_id: "{{ vpc_id|default('vpc-51cefa34') }}"
+    region: "{{ region|default('sa-east-1') }}"
+    rules:
+        - proto: tcp
+          from_port: 80
+          to_port: 80
+          cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          from_port: 22
+          to_port: 22
+          cidr_ip: 0.0.0.0/0
+    rules_egress:
+        - proto: all
+          cidr_ip: "0.0.0.0/0"
+  register: securitygroup_data
+
+- name: debug security group
+  debug: "msg='{{ securitygroup_data }}'"

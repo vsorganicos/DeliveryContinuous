@@ -2,9 +2,13 @@
 ##
 # Tasks variables
 ##
+aws_vsorganicos_region: sa-east-1
+aws_vsorganicos_vpc_id: vpc-51cefa34
+
 java_download_url: http://download.oracle.com/otn-pub/java/jdk/6u41-b02/jdk-6u41-linux-x64.bin
 java_install_path: /opt/java
 java_download_path: "{{java_install_path}}/jdk-6u41-linux-x64.bin"
+apache_lucene_path: /var/lucene
 
 http_port: 8000
 https_port: 8001
@@ -13,7 +17,7 @@ admin_password: VSorganicos#2016
 
 mysql_username: vsorganicos
 mysql_pass: VSorganicos#2016
-mysql_host: localhost
+mysql_host: vsorganicos
 mysql_port: 3306
 mysql_database: vidasaudavelorganicos
 

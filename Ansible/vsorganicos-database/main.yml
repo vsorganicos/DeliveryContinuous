@@ -1,5 +1,10 @@
-- hosts: database
+- hosts: localhost
   remote_user: root
+  become: yes
 
-  roles:
-  - {role: mysql, become: yes, mysql_root_username: 'vsorganicos', mysql_root_password: 'VSorganicos#2016', mysql_max_connections: 30, mysql_databases: { name: vidasaudavelorganicos } }
+  vars_files:
+  - 'default/main.yml'
+
+  tasks:
+    - include: tasks/create_database.yml
+    - include: tasks/import_database.yml

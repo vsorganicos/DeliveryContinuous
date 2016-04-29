@@ -1,0 +1,54 @@
+---
+  - name: habilita repo partner
+    apt_repository: repo='deb http://archive.canonical.com/ubuntu trusty partner' state=present
+
+  - name: habilita repo trusty-security
+    apt_repository: repo='deb http://security.ubuntu.com/ubuntu trusty-security main' state=present
+
+  - name: habilita repo trusty-security multiverse
+    apt_repository: repo='deb http://security.ubuntu.com/ubuntu trusty-security multiverse' state=present
+
+  - name: Instala MariaDB Client
+    action: apt name=mariadb-client state=present
+
+  - name: instala Mariadb Server
+    action: apt name=mariadb-common state=present
+
+  - name: instala Mariadb Server 2
+    action: apt name=mariadb-server state=present
+
+  - name: reinicia Mariadb
+    service:
+      name="mysql"
+      state=restarted
+      enabled=yes
+
+  - name: instala pacote python-mysqldb
+    action: apt name=python-mysqldb state=present
+
+  - name: altera senha de root do banco
+    mysql_user:
+      name=root
+      password={{mysql_pass}}
+      priv=*.*:ALL,GRANT
+      state=present
+    ignore_errors: yes
+
+  - name: cria usuario remoto no banco
+    mysql_user:
+      name={{mysql_username}}
+      password={{mysql_pass}}
+      host={{mysql_remote_host}}
+      priv=vidasaudavelorganicos.*:ALL,GRANT
+      login_user=root
+      login_password={{mysql_pass}}
+      state=present
+
+  - name: cria usuario da app no banco
+    mysql_user:
+      name={{mysql_username}}
+      password={{mysql_pass}}
+      priv=vidasaudavelorganicos.*:ALL,GRANT
+      login_user=root
+      login_password={{mysql_pass}}
+      state=present
